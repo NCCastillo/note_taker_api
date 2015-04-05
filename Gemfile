@@ -8,6 +8,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.4.1'
 gem 'doorkeeper', '~> 2.1.4'
 gem 'jquery-rails'
+gem 'oauth2', '~> 1.0.0'
 gem 'sass-rails', '~> 5.0'
 # gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'turbolinks'
