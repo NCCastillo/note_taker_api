@@ -5,6 +5,8 @@ gem 'pg', '~> 0.18.1'
 
 gem 'active_model_serializers', '~> 0.8.3'
 gem 'coffee-rails', '~> 4.1.0'
+gem 'devise', '~> 3.4.1'
+gem 'doorkeeper', '~> 2.1.4'
 gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 # gem 'sdoc', '~> 0.4.0', group: :doc
