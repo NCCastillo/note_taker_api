@@ -18,6 +18,8 @@ group :development, :test do
   gem 'better_errors', '~> 2.1.1'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'httparty', '~> 0.13.3'
+  gem 'json', '~> 1.8.2'
   gem 'meta_request', '~> 0.3.4'
   gem 'pry-byebug', '~> 3.1.0'
   gem 'rspec-rails', '~> 3.2.1'
@@ -28,5 +30,7 @@ group :test do
   gem 'capybara', '~> 2.4.4'
   gem 'database_cleaner', '~> 1.4.1'
   gem 'faker', '~> 1.4.3'
+  gem 'webmock', '~> 1.21.0'
+  gem 'vcr', '~> 2.9.3'
 end
 
