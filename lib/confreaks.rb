@@ -3,6 +3,7 @@ require 'json'
 
 module Confreaks
   class Client
+    BASE_URL = 'http://confreaks.tv/api/v1/'
     attr_reader :conference, :conferences, :event_count, :events
 
     def initialize(results)
@@ -14,27 +15,32 @@ module Confreaks
 
     def self.conferences(options={})
       if options[:name]
-        response = HTTParty.get("http://confreaks.tv/api/v1/conferences/#{options[:name].dasherize}.json")
-        results = JSON.parse(response.body)
+        results = self.fetch_from_api("conferences/#{options[:name].dasherize}.json")
         attributes = { conference: results }
       else
-        response = HTTParty.get('http://confreaks.tv/api/v1/conferences.json')
-        results = JSON.parse(response.body)
+        results = self.fetch_from_api('conferences.json')
         attributes = { conferences: results }
       end
       new(attributes)
     end
 
     def self.event_count
-      response = HTTParty.get('http://confreaks.tv/api/v1/event_count.json')
-      attributes = { event_count: JSON.parse(response.body) }
+      results = self.fetch_from_api('event_count.json')
+      attributes = { event_count: results }
       new(attributes)
     end
 
     def self.events
-      response = HTTParty.get('http://confreaks.tv/api/v1/events.json')
-      attributes = { events: JSON.parse(response.body) }
+      results = fetch_from_api('events.json')
+      attributes = { events: results }
       new(attributes)
+    end
+
+    private
+
+    def self.fetch_from_api(api_end_point)
+      response = HTTParty.get(BASE_URL + api_end_point)
+      JSON.parse(response.body)
     end
   end
 end
