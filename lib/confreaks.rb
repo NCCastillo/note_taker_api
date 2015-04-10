@@ -5,7 +5,7 @@ module Confreaks
   class Client
     BASE_URL = 'http://confreaks.tv/api/v1/'
 
-    attr_reader :conference
+    attr_reader :conference, :event
 
     def initialize
     end
@@ -18,10 +18,12 @@ module Confreaks
       @conference ||= fetch_from_api("conferences/#{name.dasherize}.json")
     end
 
-    def self.events
-      results = fetch_from_api('events.json')
-      attributes = { events: results }
-      new(attributes)
+    def events
+      @events ||= fetch_from_api('events.json')
+    end
+
+    def event_by_short_code(short_code)
+      @event ||= fetch_from_api("events/#{short_code}.json")
     end
 
     private
