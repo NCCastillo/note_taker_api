@@ -4,24 +4,17 @@ require 'json'
 module Confreaks
   class Client
     BASE_URL = 'http://confreaks.tv/api/v1/'
-    attr_reader :conference, :conferences, :event_count, :events
+    attr_reader :conference
 
-    def initialize(results)
-      @conferences = results[:conferences]
-      @conference = results[:conference]
-      @event_count = results[:event_count]
-      @events = results[:events]
+    def initialize
     end
 
-    def self.conferences(options={})
-      if options[:name]
-        results = self.fetch_from_api("conferences/#{options[:name].dasherize}.json")
-        attributes = { conference: results }
+    def conferences(api_end_point={})
+      if api_end_point[:name]
+        @conference ||= fetch_from_api("conferences/#{api_end_point[:name].dasherize}.json")
       else
-        results = self.fetch_from_api('conferences.json')
-        attributes = { conferences: results }
+        @conferences ||= fetch_from_api("conferences.json")
       end
-      new(attributes)
     end
 
     def self.event_count
@@ -38,7 +31,7 @@ module Confreaks
 
     private
 
-    def self.fetch_from_api(api_end_point)
+    def fetch_from_api(api_end_point)
       response = HTTParty.get(BASE_URL + api_end_point)
       JSON.parse(response.body)
     end
