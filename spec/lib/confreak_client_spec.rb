@@ -28,7 +28,7 @@ describe Confreaks::Client do
     end
   end
 
-  context "events" do
+  context '#events' do
     it 'returns the event count' do
       skip
       fetch_from_api('event_count.json')

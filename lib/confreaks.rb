@@ -18,12 +18,6 @@ module Confreaks
       @conference ||= fetch_from_api("conferences/#{name.dasherize}.json")
     end
 
-    def self.event_count
-      results = self.fetch_from_api('event_count.json')
-      attributes = { event_count: results }
-      new(attributes)
-    end
-
     def self.events
       results = fetch_from_api('events.json')
       attributes = { events: results }
