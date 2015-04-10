@@ -5,7 +5,7 @@ module Confreaks
   class Client
     BASE_URL = 'http://confreaks.tv/api/v1/'
 
-    attr_reader :conference, :event
+    attr_reader :conference, :event, :event_videos
 
     def initialize
     end
@@ -24,6 +24,10 @@ module Confreaks
 
     def event_by_short_code(short_code)
       @event ||= fetch_from_api("events/#{short_code}.json")
+    end
+
+    def videos_by_short_code(short_code)
+      @event_videos ||= fetch_from_api("events/#{short_code}/videos.json")
     end
 
     private

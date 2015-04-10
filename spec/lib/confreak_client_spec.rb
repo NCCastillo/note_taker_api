@@ -49,4 +49,15 @@ describe Confreaks::Client do
       expect(confreaks.event).to eq result
     end
   end
+
+  context '#videos_by_short_code' do
+    it 'returns all videos for an event' do
+      fetch_from_api('events/RubyConf2014/videos.json')
+      confreaks = Confreaks::Client.new
+      results = confreaks.videos_by_short_code("RubyConf2014")
+
+      expect(results.count).to eq 65
+      expect(confreaks.event_videos).to eq results
+    end
+  end
 end
