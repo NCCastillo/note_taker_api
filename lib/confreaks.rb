@@ -4,17 +4,18 @@ require 'json'
 module Confreaks
   class Client
     BASE_URL = 'http://confreaks.tv/api/v1/'
+
     attr_reader :conference
 
     def initialize
     end
 
-    def conferences(api_end_point={})
-      if api_end_point[:name]
-        @conference ||= fetch_from_api("conferences/#{api_end_point[:name].dasherize}.json")
-      else
-        @conferences ||= fetch_from_api("conferences.json")
-      end
+    def conferences
+      @conferences ||= fetch_from_api("conferences.json")
+    end
+
+    def conference_by_name(name)
+      @conference ||= fetch_from_api("conferences/#{name.dasherize}.json")
     end
 
     def self.event_count

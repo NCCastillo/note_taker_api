@@ -8,7 +8,7 @@ describe Confreaks::Client do
 
   let(:base_url) { 'http://confreaks.tv/api/v1/'}
 
-  context "conferences" do
+  context '#conferences' do
     it 'returns all conferences' do
       fetch_from_api('conferences.json')
       confreaks = Confreaks::Client.new
@@ -16,13 +16,15 @@ describe Confreaks::Client do
       expect(confreaks).to be_an_instance_of Confreaks::Client
       expect(confreaks.conferences.count).to eq 120
     end
+  end
 
-    it 'returns one conference by name' do
+  context '#conference_by_name' do
+    it 'returns a conference by name' do
       fetch_from_api('conferences/ruby-conference.json')
       confreaks = Confreaks::Client.new
-      confreaks.conferences(name: "ruby_conference")
+      confreaks.conference_by_name('ruby_conference')
 
-      expect(confreaks.conference["name"]).to eq "Ruby Conference"
+      expect(confreaks.conference['name']).to eq 'Ruby Conference'
     end
   end
 
