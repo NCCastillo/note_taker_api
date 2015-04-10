@@ -32,8 +32,10 @@ describe Confreaks::Client do
     it 'returns all events' do
       fetch_from_api('events.json')
       confreaks = Confreaks::Client.new
+      results = confreaks.events
 
-      expect(confreaks.events.count).to eq 243
+      expect(results.count).to eq 243
+      expect(confreaks.events).to eq results
     end
   end
 
@@ -41,9 +43,10 @@ describe Confreaks::Client do
     it 'returns an event' do
       fetch_from_api('events/RubyConf2014.json')
       confreaks = Confreaks::Client.new
-      confreaks.event_by_short_code("RubyConf2014")
+      result = confreaks.event_by_short_code("RubyConf2014")
 
-      expect(confreaks.event["short_code"]).to eq "RubyConf2014"
+      expect(result["short_code"]).to eq "RubyConf2014"
+      expect(confreaks.event).to eq result
     end
   end
 end
