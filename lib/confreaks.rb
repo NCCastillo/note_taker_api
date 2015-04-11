@@ -30,6 +30,14 @@ module Confreaks
       @event_videos ||= fetch_from_api("events/#{short_code}/videos.json")
     end
 
+    def videos
+      @videos ||= fetch_from_api("videos.json")
+    end
+
+    def videos_by_slug(slug)
+      @videos_slug ||= fetch_from_api("videos/#{slug}.json")
+    end
+
     private
 
     def fetch_from_api(api_end_point)

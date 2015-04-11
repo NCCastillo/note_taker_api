@@ -60,4 +60,25 @@ describe Confreaks::Client do
       expect(confreaks.event_videos).to eq results
     end
   end
+
+  context '#videos' do
+    it 'returns all videos' do
+      fetch_from_api('videos.json')
+      confreaks = Confreaks::Client.new
+      results = confreaks.videos
+
+      expect(results.count).to eq 12
+    end
+  end
+
+  context '#videos_by_slug' do
+    it 'returns a video by slug' do
+      fetch_from_api('videos/mwjs2014-error-handling-in-node-js.json')
+      confreaks = Confreaks::Client.new
+      result = confreaks.videos_by_slug('mwjs2014-error-handling-in-node-js')
+
+      expect(result['slug']).to eq 'mwjs2014-error-handling-in-node-js'
+    end
+
+  end
 end
