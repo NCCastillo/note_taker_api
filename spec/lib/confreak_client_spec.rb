@@ -7,11 +7,11 @@ describe Confreaks::Client do
   end
 
   let(:base_url) { 'http://confreaks.tv/api/v1/'}
+  let(:confreaks) { Confreaks::Client.new }
 
   context '#conferences' do
     it 'returns all conferences' do
       fetch_from_api('conferences.json')
-      confreaks = Confreaks::Client.new
 
       expect(confreaks).to be_an_instance_of Confreaks::Client
       expect(confreaks.conferences.count).to eq 120
@@ -21,17 +21,16 @@ describe Confreaks::Client do
   context '#conference_by_name' do
     it 'returns a conference by name' do
       fetch_from_api('conferences/ruby-conference.json')
-      confreaks = Confreaks::Client.new
-      confreaks.conference_by_name('ruby_conference')
+      result = confreaks.conference_by_name('ruby_conference')
 
-      expect(confreaks.conference['name']).to eq 'Ruby Conference'
+      expect(result['name']).to eq 'Ruby Conference'
+      expect(confreaks.conference).to eq result
     end
   end
 
   context '#events' do
     it 'returns all events' do
       fetch_from_api('events.json')
-      confreaks = Confreaks::Client.new
       results = confreaks.events
 
       expect(results.count).to eq 243
@@ -42,7 +41,6 @@ describe Confreaks::Client do
   context '#event_by_short_code' do
     it 'returns an event' do
       fetch_from_api('events/RubyConf2014.json')
-      confreaks = Confreaks::Client.new
       result = confreaks.event_by_short_code("RubyConf2014")
 
       expect(result["short_code"]).to eq "RubyConf2014"
@@ -53,7 +51,6 @@ describe Confreaks::Client do
   context '#videos_by_short_code' do
     it 'returns all videos for an event' do
       fetch_from_api('events/RubyConf2014/videos.json')
-      confreaks = Confreaks::Client.new
       results = confreaks.videos_by_short_code("RubyConf2014")
 
       expect(results.count).to eq 65
@@ -64,7 +61,6 @@ describe Confreaks::Client do
   context '#videos' do
     it 'returns all videos' do
       fetch_from_api('videos.json')
-      confreaks = Confreaks::Client.new
       results = confreaks.videos
 
       expect(results.count).to eq 12
@@ -74,7 +70,6 @@ describe Confreaks::Client do
   context '#videos_by_slug' do
     it 'returns a video by slug' do
       fetch_from_api('videos/mwjs2014-error-handling-in-node-js.json')
-      confreaks = Confreaks::Client.new
       result = confreaks.videos_by_slug('mwjs2014-error-handling-in-node-js')
 
       expect(result['slug']).to eq 'mwjs2014-error-handling-in-node-js'
