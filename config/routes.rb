@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       resources :conferences, only: [:index, :show]
       resources :presenters, only:[:index, :show]
       resources :events, only: [:index, :show]
+      resources :users, only: [] do
+        resources :notes, only: [:index, :show, :create]
+      end
     end
   end
 end
