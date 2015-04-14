@@ -1,6 +1,6 @@
 module Api
   module V1
-    class PresentersController < ApplicationController
+    class PresentersController < ApiController
       def index
         render json: Presenter.all
       end
