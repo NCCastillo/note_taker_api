@@ -19,7 +19,7 @@ describe User, type: :model do
     expect(user).to_not be_valid
   end
 
-  it 'is invalide if passwords do not match' do
+  it 'is invalid if passwords do not match' do
     user = build(:user, password: nil, password_confirmation: 'gibberish124')
 
     expect(user).to_not be_valid
