@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20150415232954) do
   create_table "notes", force: :cascade do |t|
     t.text     "body"
     t.datetime "note_taken_at"
+    t.integer  "user_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
