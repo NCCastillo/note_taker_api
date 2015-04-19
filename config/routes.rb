@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       namespace :users do
         resources :notes, only: [:index, :show, :create]
       end
+      resources :videos, only: [:index, :show]
     end
   end
 end
