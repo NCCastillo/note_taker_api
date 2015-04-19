@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 describe 'Videos API' do
+  before(:each) do
+    create_list(:video, 2)
+  end
+
   context 'GET /Videos' do
     it 'returns all videos' do
-      create_list(:video, 2)
-
       get '/api/v1/videos', {}, { 'Accept' => 'application/json' }
 
       results = JSON.parse(response.body)
@@ -16,7 +18,7 @@ describe 'Videos API' do
 
   context 'GET /videos/:id' do
     it 'returns one video' do
-      video = create(:video)
+      video = Video.first
 
       get "/api/v1/videos/#{video.id}", {}, { 'Accept' => 'application/json' }
 
