@@ -5,21 +5,21 @@ describe 'User Notes API' do
   let(:user)  { create(:user) }
   let(:token)  { Doorkeeper::AccessToken.create!(application_id: provider.id, resource_owner_id: user.id) }
 
-  context 'GET /users/:id/notes' do
+  context 'GET /users/notes' do
     it 'returns 401 when not authorized' do
-      get "/api/v1/users/#{user.id}/notes", {}, { 'Accept' => 'application/json' }
+      get "/api/v1/users/notes", {}, { 'Accept' => 'application/json' }
 
       expect(response.status).to eq 401
     end
 
     it 'returns 401 when not authorized with an invalid token' do
-      get "/api/v1/users/#{user.id}/notes", { access_token: "bleh12" }, { 'Accept' => 'application/json' }
+      get "/api/v1/users/notes", { access_token: "bleh12" }, { 'Accept' => 'application/json' }
 
       expect(response.status).to eq 401
     end
 
     it 'returns 200 with a valid token' do
-      get "/api/v1/users/#{user.id}/notes", { access_token: token.token }, { 'Accept' => 'application/json' }
+      get "/api/v1/users/notes", { access_token: token.token }, { 'Accept' => 'application/json' }
 
       expect(response.status).to eq 200
     end
@@ -28,7 +28,7 @@ describe 'User Notes API' do
       notes = [create(:note, body: "note one"), create(:note, body: "note two")]
       user.notes << notes
 
-      get "/api/v1/users/#{user.id}/notes", { access_token: token.token }, { 'Accept' => 'application/json' }
+      get "/api/v1/users/notes", { access_token: token.token }, { 'Accept' => 'application/json' }
 
       results = JSON.parse(response.body)
 
@@ -36,13 +36,13 @@ describe 'User Notes API' do
     end
   end
 
-  context 'GET /users/:id/notes/:id' do
-    it 'returns one user\s note' do
+  context 'GET /users/notes/:id' do
+    it "returns one user's note" do
       notes = [create(:note, body: "note one"), create(:note, body: "note two")]
       note = notes.first
       user.notes << notes
 
-      get "/api/v1/users/#{user.id}/notes/#{note.id}", { access_token: token.token }, { 'Accept' => 'application/json' }
+      get "/api/v1/users/notes/#{note.id}", { access_token: token.token }, { 'Accept' => 'application/json' }
 
       results = JSON.parse(response.body)
 
